@@ -1,0 +1,15 @@
+#Project Euler 493
+ 
+For each color, the probability that that color is among the 20 balls chosen is (1 – (60 choose 20) / (70 choose 20)), i.e. there are (60 choose 20) ways *not* to include that color. So, the expected value of colors is 7 times that.
+ 
+The route I actually chose was to derive a series of equations for N(7), N(6), N(5), N(4), N(3), and N(2) where N(x) is the number of ways of choosing 20 balls with exactly x colors. In particular,
+ 
+N(7) = (70 choose 20) – N(6) – N(5) – N(4) – N(3) – N(2)
+N(6) = (7 choose 6) * (60 choose 20) – 2 N(5) – 3 N(4) – 4 N(3) – 5 N(2)
+ 
+You can see the second equation this way: The number of ways to choose balls with 6 distinct colors is (# of ways to choose 1 color to exclude) * (# of ways to choose 20 of the remaining 60 balls), minus (via a principle of inclusion/exclusion inspired approach) the number of ways that choosing less than that number of colors to interfere. For instance, each way of choosing exactly 2 colors appears in five of the distinct colors to exclude.
+ 
+Then, the answer we want is (7N(7) + 6N(6) + 5N(5) + 4N(3) + 3N(3) + 2N(2))/(70 choose 20)
+                                            = 7(N(7) + N(6) + … + N(2)) – (N(6) + 2 N(5) + 3 N(4) + 4 N(3) + 5 N(2))/(70 choose 20)
+                                            = (7 (70 choose 20) – (7 choose 6) * (60 choose 20)))/(70 choose 20)
+                                            = 7 ( 1- (60 choose 20)/(70 choose 20)).
